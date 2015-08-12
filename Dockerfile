@@ -1,5 +1,5 @@
-FROM sameersbn/ubuntu:14.04.20150805
-MAINTAINER sameer@damagehead.com
+FROM resin/rpi-raspbian
+MAINTAINER Marcel Grossmann <whatever4711@gmail.com>
 
 ENV RTMP_VERSION=1.1.7 \
     NPS_VERSION=1.9.32.4 \
@@ -11,11 +11,11 @@ ENV RTMP_VERSION=1.1.7 \
     NGINX_SETUP_DIR=/var/cache/nginx
 
 RUN apt-get update \
- && apt-get install -y perl libssl1.0.0 libxslt1.1 libgd3 libxpm4 libgeoip1 libav-tools \
+ && apt-get install -y nginx-light \
  && rm -rf /var/lib/apt/lists/*
 
-COPY setup/ ${NGINX_SETUP_DIR}/
-RUN bash ${NGINX_SETUP_DIR}/install.sh
+#COPY setup/ ${NGINX_SETUP_DIR}/
+#RUN bash ${NGINX_SETUP_DIR}/install.sh
 
 COPY nginx.conf /etc/nginx/nginx.conf
 COPY entrypoint.sh /sbin/entrypoint.sh
